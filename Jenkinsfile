@@ -4,12 +4,12 @@ pipeline {
  stages {
    stage('Build docker image') {
      steps {
-        sh 'docker build -t cyberfrat:$BUILD_NUMBER .'
+        sh 'docker build -t cyberfrat1 .'
         }
       }
    stage('Test Run') {
       steps {
-          sh 'docker run -d cyberfrat:$BUILD_NUMBER'
+          sh 'docker run -d cyberfrat'
           }
         }
       }
