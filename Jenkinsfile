@@ -1,15 +1,32 @@
 pipeline {
+ environment{
+    registry= "toshith/devsecops-training"
+    registryCredential = "DockerHub"
+    dockerImage = ''
+  }
  agent any
  
  stages {
    stage('Build docker image') {
      steps {
-        sh 'docker build -t cyberfrat1 .'
+      script {
+            dockerImage= docker.build registry + ":$BUILD_NUMBER"
+          }       
         }
       }
+  stage ('Push to docker Hub') {
+   steps {
+    script {
+         docker.withRegistry('', registryCredential ) {
+          dockerImage.push()
+         }
+       }
+     }
+  }
+       
    stage('Test Run') {
       steps {
-          sh 'docker run -d cyberfrat'
+        sh 'docker run -d cyberfrat:$BUILD_NUMBER'          
           }
         }
       }
