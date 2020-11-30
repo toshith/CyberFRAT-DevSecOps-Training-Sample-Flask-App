@@ -7,6 +7,13 @@ pipeline {
  agent any
  
  stages {
+   stage('Check for secrets'){
+     steps {
+       sh "rm -rf trufflehog.json || true"
+       sh "docker run dxa4481/trufflehog:latest --json https://github.com/toshith/CyberFRAT-DevSecOps-Training-Sample-Flask-App.git > trufflehog.json || true"
+       sh "cat trufflehog.json"
+      }
+   }
    stage('Build docker image') {
      steps {
       script {
