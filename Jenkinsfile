@@ -1,6 +1,6 @@
 pipeline {
  environment{
-    registry= "toshith/devsecops-training"
+    registry= "toshith/devsec"
     registryCredential = "DockerHub"
     dockerImage = ''
   }
